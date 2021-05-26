@@ -10,13 +10,14 @@ import scala.collection.JavaConverters.asScalaBufferConverter
  * @author Evgeny Borisov
  */
 @Component
-class MusicServiceImpl(wordsRepo: WordsRepo) extends MusicService {
+class MusicServiceImpl(@transient wordsRepo: WordsRepo,val userProps: UserProps) extends MusicService with Serializable {
 
 
   override def topXWithRate(musicianName: String, x: Int): Map[String, Int] = {
     wordsRepo.allLines(musicianName)
       .map(_.toLowerCase())
       .flatMap(line => WordsUtil.getWords(line).asScala)
+      .filter(!this.userProps.garbage.contains(_))
       .map((_, 1))
       .reduceByKey(_ + _)
       .map(_.swap)

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
  * @author Evgeny Borisov
  */
 @Component
-class WordsRepoImpl(sc:SparkContext) extends WordsRepo {
+class WordsRepoImpl(sc:SparkContext) extends WordsRepo with Serializable {
 
   override def allLines(musicianName: String): RDD[String] = {
     sc.textFile(s"data/songs/$musicianName")
