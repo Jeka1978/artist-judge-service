@@ -5,6 +5,7 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.SparkContext;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.broadcast.Broadcast;
+import org.apache.spark.sql.SparkSession;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +33,11 @@ public class MainApp {
 
     @Bean
     public SparkContext sc() {
-        return new SparkContext(new SparkConf().setMaster("local[*]").setAppName("music"));
+        SparkContext context = new SparkContext(new SparkConf().setMaster("local[*]").setAppName("music"));
+
+        SparkSession sparkSession = SparkSession.builder().master("dsd").appName("").getOrCreate();
+
+        return context;
     }
 
     public static void main(String[] args) {

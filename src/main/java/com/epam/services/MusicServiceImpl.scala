@@ -3,6 +3,7 @@ package com.epam.services
 import com.epam.repo.WordsRepo
 import com.epam.utils.WordsUtil
 import org.apache.spark.broadcast.Broadcast
+import org.apache.spark.sql.SparkSession
 import org.springframework.stereotype.Component
 
 import scala.collection.JavaConverters.asScalaBufferConverter
